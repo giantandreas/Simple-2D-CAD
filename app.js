@@ -62,10 +62,10 @@ function main() {
     gl.vertexAttribPointer(coords, 3, gl.FLOAT, false, 0, 0);
     
     gl.enableVertexAttribArray(coords);
-    gl.clearColor( 1.0, 0.0, 0.0, 1.0 );
+    gl.clearColor( 1.0, 1.0, 1.0, 1.0 );
 	  gl.enable( gl.DEPTH_TEST );
     gl.clear( gl.COLOR_BUFFER_BIT );
-    gl.viewport(0, 0, canvas.width, canvas.height);
+    gl.viewport(0, 0, gl.canvas.width, gl.canvas.height);
 
     gl.drawArrays(gl.LINE_LOOP, 0, 4);
 }
