@@ -1,0 +1,21 @@
+body{
+    margin: 0;
+}
+
+.container{
+    display: flex;
+
+}
+
+canvas{
+    flex-basis: 80%;
+    width: 100vh;
+    border-left: 2px solid black;
+}
+
+.tools-container{
+    display: flex;
+    flex-basis: 20%;
+    padding: 15px;
+    flex-direction: column;
+}
