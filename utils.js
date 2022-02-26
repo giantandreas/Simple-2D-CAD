@@ -10,3 +10,18 @@ export function hexToRGB(hex){
 
 
 /***********************************************************************************/
+
+
+// var canvasPos = canvas.getBoundingClientRect()
+// console.log(canvasPos);
+// var left = canvasPos.left + canvasPos.width/2;
+// var top = canvasPos.top + canvasPos.height/2;
+// canvas.addEventListener("mousedown", function(e){
+//   var canvasPos = canvas.getBoundingClientRect()
+//   var x_mouse = (e.clientX - left);
+//   var y_mouse = -(e.clientY - top);
+//   console.log("x client: "+e.clientX);
+//   console.log("y client: "+e.clientY);
+//   console.log("x: "+x_mouse);
+//   console.log("y: "+y_mouse);
+// })
