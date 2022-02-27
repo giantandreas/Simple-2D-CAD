@@ -55,11 +55,10 @@ export function canvasMouseDown(e, objectManager){
             objectManager.objectInDraw = null;
             square.drawObject(objectManager);
 
-            objectManager.square = false;
+            objectManager.drawSquare = false;
             objectManager.isDrawing = false;
         }
     }
-
 }
 
 export function canvasMouseMove(e, objectManager){
@@ -68,6 +67,15 @@ export function canvasMouseMove(e, objectManager){
     
     /* Drawing line  */
     if(objectManager.drawLine && objectManager.isDrawing){
+        // draw line dynamicly
+        var cords = getMouseCord(e, canvasPos);
+        objectManager.objectInDraw.verticeArray[2] = cords[0];
+        objectManager.objectInDraw.verticeArray[3] = cords[1];
+        objectManager.reDrawAll();
+    }
+
+    /* Drawing Square  */
+    if(objectManager.drawSquare && objectManager.isDrawing){
         // draw line dynamicly
         var cords = getMouseCord(e, canvasPos);
         objectManager.objectInDraw.verticeArray[2] = cords[0];
