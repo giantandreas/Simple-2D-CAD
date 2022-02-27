@@ -72,7 +72,23 @@ export class Object{
         
     }
 
-    
+    polygonVertice(){
+        if(this.verticeArray.length/2 < 3){
+            this.numVertices = this.verticeArray.length/2;
+            return this.verticeArray;
+        }
+        var polygonVertice = [];
+        for(let i = 0; i < this.verticeArray.length/2 -2; i++){
+            polygonVertice.push(this.verticeArray[0], this.verticeArray[1]);
+            polygonVertice.push(this.verticeArray[2*(i+1)], this.verticeArray[2*(i+1)+1]);
+            polygonVertice.push(this.verticeArray[2*(i+2)], this.verticeArray[2*(i+2)+1]);
+        }
+
+        this.numVertices = polygonVertice.length/2;
+        return polygonVertice;
+    }
+
+
 
     drawObject(objectManager){
         var gl = objectManager.gl;
@@ -116,9 +132,7 @@ export class Object{
         }else if(this.type == "polygon"){
             /* Draw Polygon */
             initBuffer(this, gl, program);
-            this.numVertices = this.verticeArray.length/2;
-            console.log(this.verticeArray);
-            gl.drawArrays(gl.LINE_LOOP, 0, this.numVertices);
+            gl.drawArrays(gl.TRIANGLE_FAN, 0, this.numVertices);
 
             /* Draw Vertice (black) */
             var color = gl.getUniformLocation(program, 'color');
@@ -185,7 +199,7 @@ function initBuffer(object, gl, program){
         verticeArray = object.rectangledVertice();
     }
     if(object.type == "polygon"){
-        verticeArray = object.verticeArray;
+        verticeArray = object.polygonVertice();
     }
 
     // Create Buffer
