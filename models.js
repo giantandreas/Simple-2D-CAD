@@ -72,6 +72,8 @@ export class Object{
         
     }
 
+    
+
     drawObject(objectManager){
         var gl = objectManager.gl;
         var program = objectManager.program;
@@ -112,7 +114,16 @@ export class Object{
              gl.drawArrays(gl.POINTS, 0, this.numVertices);
 
         }else if(this.type == "polygon"){
-            // draw polygon
+            /* Draw Polygon */
+            initBuffer(this, gl, program);
+            this.numVertices = this.verticeArray.length/2;
+            console.log(this.verticeArray);
+            gl.drawArrays(gl.LINE_LOOP, 0, this.numVertices);
+
+            /* Draw Vertice (black) */
+            var color = gl.getUniformLocation(program, 'color');
+            gl.uniform4fv(color, [0,0,0,1]);
+            gl.drawArrays(gl.POINTS, 0, this.numVertices);
         }else{
             console.log("%s not a object type!", this.type);
         }
@@ -172,6 +183,9 @@ function initBuffer(object, gl, program){
     }
     if(object.type == "rectangle"){
         verticeArray = object.rectangledVertice();
+    }
+    if(object.type == "polygon"){
+        verticeArray = object.verticeArray;
     }
 
     // Create Buffer

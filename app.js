@@ -1,6 +1,6 @@
 import { programFunction } from "./shaders.js";
 import {init} from "./init.js";
-import { canvasMouseDown, lineButton, canvasMouseMove, rectangleButton, squareButton } from "./listener.js";
+import { canvasMouseDown, lineButton, canvasMouseMove, rectangleButton, squareButton, polygonButton, enterListener, escapeListener } from "./listener.js";
 import {ObjectManager} from "./models.js"
 
 function main() {
@@ -47,6 +47,15 @@ function main() {
     document.getElementById("rectangle-button").addEventListener("click", function(e){
       rectangleButton(e, objectManager);
     })
+
+    /* Polygon Button */
+    document.getElementById("polygon-button").addEventListener("click", function(e){
+      polygonButton(e, objectManager);
+    })
+
+    document.addEventListener('keypress', function(e){
+      enterListener(e, objectManager);
+    });
 
 
 }

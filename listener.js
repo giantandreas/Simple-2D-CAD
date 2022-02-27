@@ -94,11 +94,22 @@ export function canvasMouseDown(e, objectManager){
         if(objectManager.verticeToPut >0){
             var i = objectManager.verticeToPut;
             var cords = getMouseCord(e, canvasPos);
-            objectManager.objectInDraw.verticeArray[i-1] = cords[0];
-            objectManager.objectInDraw.verticeArray[i] = cords[1];
+            objectManager.objectInDraw.verticeArray[2*(i-1)] = cords[0];
+            objectManager.objectInDraw.verticeArray[2*(i-1) +1] = cords[1];
+
+            objectManager.verticeToPut = objectManager.verticeToPut +1;
+            objectManager.isDrawing = true;
         }
+
         if(objectManager.verticeToPut == 0){
-            
+            var polygon = objectManager.objectInDraw;
+
+            objectManager.objectList.push(polygon);
+            objectManager.objectInDraw = null;
+            polygon.drawObject(objectManager);
+
+            objectManager.drawPolygon = false;
+            objectManager.isDrawing = false;
         }
     }
 }
@@ -133,6 +144,16 @@ export function canvasMouseMove(e, objectManager){
         objectManager.objectInDraw.verticeArray[3] = cords[1];
         objectManager.reDrawAll();
     }
+
+    /* Drawing Polygon */
+    if(objectManager.drawPolygon && objectManager.isDrawing){
+        // draw rectangle dynamicly
+        var cords = getMouseCord(e, canvasPos);
+        var i = objectManager.verticeToPut;
+        objectManager.objectInDraw.verticeArray[2*(i-1)] = cords[0];
+        objectManager.objectInDraw.verticeArray[2*(i-1)+1] = cords[1];
+        objectManager.reDrawAll();
+    }
 }
 
 export function lineButton(e, objectManager){
@@ -165,4 +186,32 @@ export function polygonButton(e, objectManager){
     var polygon = new Object("polygon", [], color);
     objectManager.objectInDraw = polygon;
     objectManager.verticeToPut = 1;
+}
+
+export function enterListener(e, objectManager){
+    if(objectManager.drawPolygon && objectManager.isDrawing){
+        var polygon = objectManager.objectInDraw;
+
+        objectManager.objectList.push(polygon);
+        objectManager.objectInDraw = null;
+        polygon.drawObject(objectManager);
+
+        objectManager.drawPolygon = false;
+        objectManager.isDrawing = false;
+        
+        objectManager.verticeToPut = 0;
+
+    }
+}
+
+export function escapeListener(e, objectManager){
+    if(objectManager.isDrawing){
+        objectManager.objectInDraw = null;
+        objectManager.isDrawing = false;
+        objectManager.drawLine = false;
+        objectManager.drawSquare = false;
+        objectManager.drawRectangle = false;
+        objectManager.drawPolygon = false;
+        objectManager.verticeToPut = 0;
+    }
 }
