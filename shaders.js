@@ -4,6 +4,7 @@ var vertexCode = [
 'attribute vec2 coordinates;',
 'void main(void) {',
 ' gl_Position = vec4(coordinates, 0.0, 1.0);',
+' gl_PointSize = 10.0;',
 '}'
 ].join('\n');
 

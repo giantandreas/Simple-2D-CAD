@@ -12,6 +12,7 @@ canvas{
     height: 100vh;
     aspect-ratio: 1;
     border: 2px solid black;
+    margin-right: 20px;
 }
 
 .tools-container{
@@ -19,4 +20,9 @@ canvas{
     flex-basis: 20%;
     flex-direction: column;
     padding: 10px;
+}
+
+#hidden-text{
+    margin-top: 20px;
+    display: none;
 }

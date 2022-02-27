@@ -10,7 +10,7 @@ export function init(){
     // Initialize WebGL, setting context
     const gl = canvas.getContext("webgl", { preserveDrawingBuffer: true });
     gl.clearColor( 1.0, 1.0, 1.0, 1.0 );
-    // gl.enable( gl.DEPTH_TEST );
+    gl.enable( gl.DEPTH_TEST );
     gl.clear( gl.COLOR_BUFFER_BIT );
     gl.viewport(0, 0, canvas.width, canvas.height);
 
