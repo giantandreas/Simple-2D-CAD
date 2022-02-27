@@ -12,20 +12,63 @@ export class Object{
     }
 
     squaredVertice(){
-        var v1 = [this.verticeArray[0], this.verticeArray[1]];
-        var v2 = [this.verticeArray[2], this.verticeArray[1]];
-        var v3 = [this.verticeArray[2], this.verticeArray[3]];
-        var v4 = [this.verticeArray[0], this.verticeArray[3]];
+        var v1 = [];
+        var v2 = [];
+        var v3 = [];
+        var v4 = [];
         
-        var squaredArray = [v1[0], v1[1],
+        var x = Math.abs(this.verticeArray[0] - this.verticeArray[2]);
+        var y = Math.abs(this.verticeArray[1] - this.verticeArray[3]);
+        if(y > x){
+            x = y;
+        }
+        var v1 = [this.verticeArray[0], this.verticeArray[1]];
+        if(this.verticeArray[2] - this.verticeArray[0] >= 0){
+            var v2 = [this.verticeArray[0]+ x, this.verticeArray[1]];
+            if(this.verticeArray[3] - this.verticeArray[1] >= 0){
+                var v3 = [this.verticeArray[0] + x, this.verticeArray[1] + x];
+                var v4 = [this.verticeArray[0], this.verticeArray[1] +x];
+            }else{
+                var v3 = [this.verticeArray[0] + x, this.verticeArray[1] - x];
+                var v4 = [this.verticeArray[0], this.verticeArray[1] - x];
+            }
+        }else{
+            var v2 = [this.verticeArray[0] - x, this.verticeArray[1]];
+            if(this.verticeArray[3] - this.verticeArray[1] >= 0){
+                var v3 = [this.verticeArray[0] - x, this.verticeArray[1] + x];
+                var v4 = [this.verticeArray[0], this.verticeArray[1] +x];
+            }else{
+                var v3 = [this.verticeArray[0] - x, this.verticeArray[1] - x];
+                var v4 = [this.verticeArray[0], this.verticeArray[1] - x];
+            }
+        }
+        
+        var squaredVertice = [v1[0], v1[1],
                             v2[0], v2[1],
                             v3[0], v3[1],
                             v3[0], v3[1],
                             v4[0], v4[1],
                             v1[0], v1[1]];
         
-        this.numVertices = squaredArray.length/2;
-        return squaredArray;
+        this.numVertices = squaredVertice.length/2;
+        return squaredVertice;
+    }
+
+    rectangledVertice(){
+        var v1 = [this.verticeArray[0], this.verticeArray[1]];
+        var v2 = [this.verticeArray[2], this.verticeArray[1]];
+        var v3 = [this.verticeArray[2], this.verticeArray[3]];
+        var v4 = [this.verticeArray[0], this.verticeArray[3]];
+        
+        var rectangledVertice = [v1[0], v1[1],
+                            v2[0], v2[1],
+                            v3[0], v3[1],
+                            v3[0], v3[1],
+                            v4[0], v4[1],
+                            v1[0], v1[1]];
+        
+        this.numVertices = rectangledVertice.length/2;
+        return rectangledVertice;
         
     }
 
@@ -44,10 +87,10 @@ export class Object{
             /* Draw Vertice */
             var color = gl.getUniformLocation(program, 'color');
             gl.uniform4fv(color, [0,0,0,1]);
-            gl.drawArrays(gl.PONTS, 0, this.numVertices);
+            gl.drawArrays(gl.POINTS, 0, this.numVertices);
 
         }else if(this.type == "square"){
-            /* Draw Square*/
+            /* Draw Square */
 
             initBuffer(this, gl ,program);
             gl.drawArrays(gl.TRIANGLE_FAN, 0, this.numVertices);
@@ -55,10 +98,19 @@ export class Object{
             /* Draw Vertice (black) */
              var color = gl.getUniformLocation(program, 'color');
              gl.uniform4fv(color, [0,0,0,1]);
-             gl.drawArrays(gl.PONTS, 0, this.numVertices);
+             gl.drawArrays(gl.POINTS, 0, this.numVertices);
 
-        }else if(this.type == "quads"){
-            // draw quads
+        }else if(this.type == "rectangle"){
+            /*Draw Rectangle */
+
+            initBuffer(this, gl ,program);
+            gl.drawArrays(gl.TRIANGLE_FAN, 0, this.numVertices);
+
+            /* Draw Vertice (black) */
+             var color = gl.getUniformLocation(program, 'color');
+             gl.uniform4fv(color, [0,0,0,1]);
+             gl.drawArrays(gl.POINTS, 0, this.numVertices);
+
         }else if(this.type == "polygon"){
             // draw polygon
         }else{
@@ -79,7 +131,7 @@ export class ObjectManager{
         this.verticeToPut = 0;
         this.drawLine = false;
         this.drawSquare = false;
-        this.drawQuads = false;
+        this.drawRectangle = false;
         this.drawPolygon = false;
         this.isDrawing = false;
         this.test = false;
@@ -110,19 +162,21 @@ export class ObjectManager{
 }
 
 function initBuffer(object, gl, program){
-    gl.useProgram(program)
-    var verticeArray = object.verticeArray;
+    gl.useProgram(program);
+    var verticeArray= null;
+    if(object.type == "line"){
+        verticeArray = object.verticeArray;
+    }
+    if(object.type == "square"){
+        verticeArray = object.squaredVertice();
+    }
+    if(object.type == "rectangle"){
+        verticeArray = object.rectangledVertice();
+    }
 
     // Create Buffer
     var vertexBuffer = gl.createBuffer();
     gl.bindBuffer(gl.ARRAY_BUFFER, vertexBuffer);
-
-    if(object.type == "square"){
-        verticeArray = object.squaredVertice();
-        console.log(verticeArray);
-        console.log(object.numVertices)
-    }
-
     gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(verticeArray), gl.STATIC_DRAW);
 
     var vertexPosition = gl.getAttribLocation(program, 'coordinates');

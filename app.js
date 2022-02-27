@@ -1,6 +1,6 @@
 import { programFunction } from "./shaders.js";
 import {init} from "./init.js";
-import { canvasMouseDown, lineButton, canvasMouseMove, squareButton } from "./listener.js";
+import { canvasMouseDown, lineButton, canvasMouseMove, rectangleButton, squareButton } from "./listener.js";
 import {ObjectManager} from "./models.js"
 
 function main() {
@@ -36,11 +36,16 @@ function main() {
     /* Line Button */
     document.getElementById("line-button").addEventListener("click", function(e){
       lineButton(e, objectManager);
-    })
+    });
 
     /* Square Button*/
     document.getElementById("square-button").addEventListener("click", function(e){
       squareButton(e, objectManager);
+    })
+
+    /* Rectangle Button*/
+    document.getElementById("rectangle-button").addEventListener("click", function(e){
+      rectangleButton(e, objectManager);
     })
 
 

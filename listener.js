@@ -32,7 +32,8 @@ export function canvasMouseDown(e, objectManager){
             objectManager.isDrawing = false;
         }
     }
-    /* Drawing Square */
+
+    /* Draw Square */
     if(objectManager.drawSquare){
         if(objectManager.verticeToPut>0){
             /* Store the vertice coordinates to the object vertice array */
@@ -59,6 +60,47 @@ export function canvasMouseDown(e, objectManager){
             objectManager.isDrawing = false;
         }
     }
+
+    /* Drawing Rectangle */
+    if(objectManager.drawRectangle){
+        if(objectManager.verticeToPut>0){
+            /* Store the vertice coordinates to the object vertice array */
+            var cords = getMouseCord(e, canvasPos);
+            if(objectManager.objectInDraw.verticeArray.length < 2){
+                objectManager.objectInDraw.verticeArray.push(cords[0]);
+                objectManager.objectInDraw.verticeArray.push(cords[1]);
+            }else{
+                objectManager.objectInDraw.verticeArray[2] = cords[0];
+                objectManager.objectInDraw.verticeArray[3] = cords[1];
+            }
+            
+            objectManager.verticeToPut = objectManager.verticeToPut -1;
+            objectManager.isDrawing = true;
+        }
+        if(objectManager.verticeToPut == 0){
+            var rectangle = objectManager.objectInDraw;
+
+            objectManager.objectList.push(rectangle);
+            objectManager.objectInDraw = null;
+            rectangle.drawObject(objectManager);
+
+            objectManager.drawRectangle = false;
+            objectManager.isDrawing = false;
+        }
+    }
+
+    /* Drawing Polygon */
+    if(objectManager.drawPolygon){
+        if(objectManager.verticeToPut >0){
+            var i = objectManager.verticeToPut;
+            var cords = getMouseCord(e, canvasPos);
+            objectManager.objectInDraw.verticeArray[i-1] = cords[0];
+            objectManager.objectInDraw.verticeArray[i] = cords[1];
+        }
+        if(objectManager.verticeToPut == 0){
+            
+        }
+    }
 }
 
 export function canvasMouseMove(e, objectManager){
@@ -76,7 +118,16 @@ export function canvasMouseMove(e, objectManager){
 
     /* Drawing Square  */
     if(objectManager.drawSquare && objectManager.isDrawing){
-        // draw line dynamicly
+        // draw square dynamicly
+        var cords = getMouseCord(e, canvasPos);
+        objectManager.objectInDraw.verticeArray[2] = cords[0];
+        objectManager.objectInDraw.verticeArray[3] = cords[1];
+        objectManager.reDrawAll();
+    }
+
+    /* Drawing Rectangle  */
+    if(objectManager.drawRectangle && objectManager.isDrawing){
+        // draw rectangle dynamicly
         var cords = getMouseCord(e, canvasPos);
         objectManager.objectInDraw.verticeArray[2] = cords[0];
         objectManager.objectInDraw.verticeArray[3] = cords[1];
@@ -98,4 +149,20 @@ export function squareButton(e, objectManager){
     var square = new Object("square", [], color);
     objectManager.objectInDraw = square;
     objectManager.verticeToPut = 2;
+}
+
+export function rectangleButton(e, objectManager){
+    objectManager.drawRectangle = true;
+    var color = getColorRGBA();
+    var rectangle = new Object("rectangle", [], color);
+    objectManager.objectInDraw = rectangle;
+    objectManager.verticeToPut = 2;
+}
+
+export function polygonButton(e, objectManager){
+    objectManager.drawPolygon = true;
+    var color = getColorRGBA();
+    var polygon = new Object("polygon", [], color);
+    objectManager.objectInDraw = polygon;
+    objectManager.verticeToPut = 1;
 }
