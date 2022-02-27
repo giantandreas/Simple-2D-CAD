@@ -112,6 +112,34 @@ export function canvasMouseDown(e, objectManager){
             objectManager.isDrawing = false;
         }
     }
+    /* Selecting Vertice */
+    if(objectManager.select){
+        /* If a vertex has selected */
+        if(objectManager.isDrawing){
+            objectManager.isDrawing = false
+            objectManager.select = false;
+            objectManager.selectedIndex = null;
+            objectManager.selectedObject = null;
+            objectManager.reDrawAll();
+            return;
+        }
+        var cords = getMouseCord(e, canvasPos);
+        var threshold = 10/objectManager.canvas.width;
+
+        objectManager.objectList.forEach(object => {
+            for(let i=0; i < object.verticeArray.length; i+=2){
+                if(object.verticeArray[i]-cords[0]<= threshold){
+                    if(object.verticeArray[i+1]-cords[1]<= threshold){
+                        objectManager.selectedObject = object;
+                        objectManager.selectedIndex = i;
+                        objectManager.isDrawing = true;
+                        return;
+                    }
+                }
+            }
+        });
+    }
+    
 }
 
 export function canvasMouseMove(e, objectManager){
@@ -152,6 +180,15 @@ export function canvasMouseMove(e, objectManager){
         var i = objectManager.verticeToPut;
         objectManager.objectInDraw.verticeArray[2*(i-1)] = cords[0];
         objectManager.objectInDraw.verticeArray[2*(i-1)+1] = cords[1];
+        objectManager.reDrawAll();
+    }
+
+    /* Moving Vertex */
+    if(objectManager.select && objectManager.isDrawing){
+        var cords = getMouseCord(e, canvasPos);
+        var index = objectManager.selectedIndex;
+        objectManager.selectedObject.verticeArray[index] = cords[0];
+        objectManager.selectedObject.verticeArray[index+1] = cords[1];
         objectManager.reDrawAll();
     }
 }
@@ -202,6 +239,7 @@ export function enterListener(e, objectManager){
         objectManager.verticeToPut = 0;
 
     }
+
 }
 
 export function escapeListener(e, objectManager){
@@ -215,3 +253,8 @@ export function escapeListener(e, objectManager){
         objectManager.verticeToPut = 0;
     }
 }
+
+export function selectListener(e, objectManager){
+    objectManager.select = true;
+}
+

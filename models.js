@@ -159,7 +159,9 @@ export class ObjectManager{
         this.drawRectangle = false;
         this.drawPolygon = false;
         this.isDrawing = false;
-        this.test = false;
+        this.select = false;
+        this.seletedObject = null;
+        this.selectedIndex = null;
     }
 
     getNumObject(){
@@ -181,7 +183,9 @@ export class ObjectManager{
             object.drawObject(objectManager);
         })
         
-        this.objectInDraw.drawObject(objectManager);
+        if(this.objectInDraw != null){
+            this.objectInDraw.drawObject(objectManager);
+        }
     }
 
 }

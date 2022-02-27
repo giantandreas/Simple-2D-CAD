@@ -1,6 +1,6 @@
 import { programFunction } from "./shaders.js";
 import {init} from "./init.js";
-import { canvasMouseDown, lineButton, canvasMouseMove, rectangleButton, squareButton, polygonButton, enterListener, escapeListener } from "./listener.js";
+import { canvasMouseDown, lineButton, canvasMouseMove, rectangleButton, squareButton, polygonButton, enterListener, escapeListener, selectListener } from "./listener.js";
 import {ObjectManager} from "./models.js"
 
 function main() {
@@ -56,6 +56,10 @@ function main() {
     document.addEventListener('keypress', function(e){
       enterListener(e, objectManager);
     });
+
+    document.getElementById("select-button").addEventListener("click", function(e){
+      selectListener(e, objectManager);
+    })
 
 
 }
