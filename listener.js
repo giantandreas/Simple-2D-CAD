@@ -30,10 +30,36 @@ export function canvasMouseDown(e, objectManager){
 
             objectManager.drawLine = false;
             objectManager.isDrawing = false;
-
-            console.log(objectManager.objectList)
         }
     }
+    /* Drawing Square */
+    if(objectManager.drawSquare){
+        if(objectManager.verticeToPut>0){
+            /* Store the vertice coordinates to the object vertice array */
+            var cords = getMouseCord(e, canvasPos);
+            if(objectManager.objectInDraw.verticeArray.length < 2){
+                objectManager.objectInDraw.verticeArray.push(cords[0]);
+                objectManager.objectInDraw.verticeArray.push(cords[1]);
+            }else{
+                objectManager.objectInDraw.verticeArray[2] = cords[0];
+                objectManager.objectInDraw.verticeArray[3] = cords[1];
+            }
+            
+            objectManager.verticeToPut = objectManager.verticeToPut -1;
+            objectManager.isDrawing = true;
+        }
+        if(objectManager.verticeToPut == 0){
+            var square = objectManager.objectInDraw;
+
+            objectManager.objectList.push(square);
+            objectManager.objectInDraw = null;
+            square.drawObject(objectManager);
+
+            objectManager.square = false;
+            objectManager.isDrawing = false;
+        }
+    }
+
 }
 
 export function canvasMouseMove(e, objectManager){
@@ -60,5 +86,8 @@ export function lineButton(e, objectManager){
 
 export function squareButton(e, objectManager){
     objectManager.drawSquare = true;
+    var color = getColorRGBA();
+    var square = new Object("square", [], color);
+    objectManager.objectInDraw = square;
     objectManager.verticeToPut = 2;
 }
