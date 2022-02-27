@@ -6,7 +6,7 @@ export function canvasMouseDown(e, objectManager){
     var canvas = objectManager.canvas;
     var canvasPos = canvas.getBoundingClientRect();
 
-    /*Drawing Line */
+    /*Draw Line */
     if(objectManager.drawLine){
         if(objectManager.verticeToPut>0){
             var cords = getMouseCord(e, canvasPos);
@@ -54,6 +54,7 @@ export function canvasMouseDown(e, objectManager){
 
             objectManager.objectList.push(square);
             objectManager.objectInDraw = null;
+            square.resolveSquareVertice();
             square.drawObject(objectManager);
 
             objectManager.drawSquare = false;
@@ -61,7 +62,7 @@ export function canvasMouseDown(e, objectManager){
         }
     }
 
-    /* Drawing Rectangle */
+    /* Draw Rectangle */
     if(objectManager.drawRectangle){
         if(objectManager.verticeToPut>0){
             /* Store the vertice coordinates to the object vertice array */
@@ -70,8 +71,8 @@ export function canvasMouseDown(e, objectManager){
                 objectManager.objectInDraw.verticeArray.push(cords[0]);
                 objectManager.objectInDraw.verticeArray.push(cords[1]);
             }else{
-                objectManager.objectInDraw.verticeArray[2] = cords[0];
-                objectManager.objectInDraw.verticeArray[3] = cords[1];
+                objectManager.objectInDraw.verticeArray[4] = cords[0];
+                objectManager.objectInDraw.verticeArray[5] = cords[1];
             }
             
             objectManager.verticeToPut = objectManager.verticeToPut -1;
@@ -89,7 +90,7 @@ export function canvasMouseDown(e, objectManager){
         }
     }
 
-    /* Drawing Polygon */
+    /* Draw Polygon */
     if(objectManager.drawPolygon){
         if(objectManager.verticeToPut >0){
             var i = objectManager.verticeToPut;
@@ -128,13 +129,16 @@ export function canvasMouseDown(e, objectManager){
 
         objectManager.objectList.forEach(object => {
             for(let i=0; i < object.verticeArray.length; i+=2){
-                if(object.verticeArray[i]-cords[0]<= threshold){
-                    if(object.verticeArray[i+1]-cords[1]<= threshold){
-                        objectManager.selectedObject = object;
-                        objectManager.selectedIndex = i;
-                        objectManager.isDrawing = true;
-                        return;
-                    }
+                if(Math.abs(object.verticeArray[i]-cords[0])<= threshold && Math.abs(object.verticeArray[i+1]-cords[1])<= threshold){                    
+                    objectManager.selectedObject = object;
+                    objectManager.selectedIndex = i;
+                    objectManager.isDrawing = true;
+                    // console.log("index: "+i);
+                    // console.log("mouse: " + cords);
+                    // console.log("selectedV: "+[object.verticeArray[i], object.verticeArray[i+1]]);
+                    // console.log("threshold: "+threshold);
+
+                    return;
                 }
             }
         });
@@ -159,8 +163,9 @@ export function canvasMouseMove(e, objectManager){
     if(objectManager.drawSquare && objectManager.isDrawing){
         // draw square dynamicly
         var cords = getMouseCord(e, canvasPos);
-        objectManager.objectInDraw.verticeArray[2] = cords[0];
-        objectManager.objectInDraw.verticeArray[3] = cords[1];
+        objectManager.objectInDraw.verticeArray[4] = cords[0];
+        objectManager.objectInDraw.verticeArray[5] = cords[1];
+        objectManager.objectInDraw.resolveSquareVertice();
         objectManager.reDrawAll();
     }
 
@@ -168,8 +173,9 @@ export function canvasMouseMove(e, objectManager){
     if(objectManager.drawRectangle && objectManager.isDrawing){
         // draw rectangle dynamicly
         var cords = getMouseCord(e, canvasPos);
-        objectManager.objectInDraw.verticeArray[2] = cords[0];
-        objectManager.objectInDraw.verticeArray[3] = cords[1];
+        objectManager.objectInDraw.verticeArray[4] = cords[0];
+        objectManager.objectInDraw.verticeArray[5] = cords[1];
+        objectManager.objectInDraw.resolveRectangleVertice();
         objectManager.reDrawAll();
     }
 

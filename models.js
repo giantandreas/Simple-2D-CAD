@@ -11,21 +11,21 @@ export class Object{
         // implement change color in the canvas
     }
 
-    squaredVertice(){
+    resolveSquareVertice(){
         var v1 = [];
         var v2 = [];
         var v3 = [];
         var v4 = [];
         
-        var x = Math.abs(this.verticeArray[0] - this.verticeArray[2]);
-        var y = Math.abs(this.verticeArray[1] - this.verticeArray[3]);
+        var x = Math.abs(this.verticeArray[0] - this.verticeArray[4]);
+        var y = Math.abs(this.verticeArray[1] - this.verticeArray[5]);
         if(y > x){
             x = y;
         }
         var v1 = [this.verticeArray[0], this.verticeArray[1]];
-        if(this.verticeArray[2] - this.verticeArray[0] >= 0){
+        if(this.verticeArray[4] - this.verticeArray[0] >= 0){
             var v2 = [this.verticeArray[0]+ x, this.verticeArray[1]];
-            if(this.verticeArray[3] - this.verticeArray[1] >= 0){
+            if(this.verticeArray[5] - this.verticeArray[1] >= 0){
                 var v3 = [this.verticeArray[0] + x, this.verticeArray[1] + x];
                 var v4 = [this.verticeArray[0], this.verticeArray[1] +x];
             }else{
@@ -34,7 +34,7 @@ export class Object{
             }
         }else{
             var v2 = [this.verticeArray[0] - x, this.verticeArray[1]];
-            if(this.verticeArray[3] - this.verticeArray[1] >= 0){
+            if(this.verticeArray[5] - this.verticeArray[1] >= 0){
                 var v3 = [this.verticeArray[0] - x, this.verticeArray[1] + x];
                 var v4 = [this.verticeArray[0], this.verticeArray[1] +x];
             }else{
@@ -46,29 +46,50 @@ export class Object{
         var squaredVertice = [v1[0], v1[1],
                             v2[0], v2[1],
                             v3[0], v3[1],
-                            v3[0], v3[1],
-                            v4[0], v4[1],
-                            v1[0], v1[1]];
+                            v4[0], v4[1]];
         
-        this.numVertices = squaredVertice.length/2;
-        return squaredVertice;
+        this.verticeArray = squaredVertice;
     }
 
-    rectangledVertice(){
+    resolveRectangleVertice(){
         var v1 = [this.verticeArray[0], this.verticeArray[1]];
-        var v2 = [this.verticeArray[2], this.verticeArray[1]];
-        var v3 = [this.verticeArray[2], this.verticeArray[3]];
-        var v4 = [this.verticeArray[0], this.verticeArray[3]];
+        var v2 = [this.verticeArray[4], this.verticeArray[1]];
+        var v3 = [this.verticeArray[4], this.verticeArray[5]];
+        var v4 = [this.verticeArray[0], this.verticeArray[5]];
         
         var rectangledVertice = [v1[0], v1[1],
                             v2[0], v2[1],
                             v3[0], v3[1],
-                            v3[0], v3[1],
-                            v4[0], v4[1],
-                            v1[0], v1[1]];
+                            v4[0], v4[1]];
         
-        this.numVertices = rectangledVertice.length/2;
-        return rectangledVertice;
+        this.verticeArray= rectangledVertice;
+    }
+
+    squaredVertice(){
+        var squared = [];
+        squared.push(this.verticeArray[0], this.verticeArray[1]);
+        squared.push(this.verticeArray[2], this.verticeArray[3]);
+        squared.push(this.verticeArray[4], this.verticeArray[5]);
+        squared.push(this.verticeArray[0], this.verticeArray[1]);
+        squared.push(this.verticeArray[4], this.verticeArray[5]);
+        squared.push(this.verticeArray[6], this.verticeArray[7]);
+
+        this.numVertices = squared.length/2;
+        return squared;
+    }
+
+    rectangledVertice(){
+        var rectangled = [];
+
+        rectangled.push(this.verticeArray[0], this.verticeArray[1]);
+        rectangled.push(this.verticeArray[2], this.verticeArray[3]);
+        rectangled.push(this.verticeArray[4], this.verticeArray[5]);
+        rectangled.push(this.verticeArray[0], this.verticeArray[1]);
+        rectangled.push(this.verticeArray[4], this.verticeArray[5]);
+        rectangled.push(this.verticeArray[6], this.verticeArray[7]);
+        
+        this.numVertices = rectangled.length/2;
+        return rectangled;
         
     }
 
