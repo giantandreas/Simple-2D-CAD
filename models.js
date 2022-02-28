@@ -1,4 +1,4 @@
-export class Object{
+class Object{
     constructor(type, verticeArray, color){
         this.type = type;
         this.numVertices = verticeArray.length/2;
@@ -204,7 +204,7 @@ export class Object{
     }
 }
 
-export class ObjectManager{
+class ObjectManager{
     constructor(gl, canvas, program){
         this.gl = gl;
         this.canvas = canvas;

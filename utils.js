@@ -8,7 +8,7 @@ function hexToRGB(hex){
     return [r/255,g/255,b/255,1];
 }
 
-export function getMouseCord(e, canvasPos){
+function getMouseCord(e, canvasPos){
     var left = canvasPos.left + canvasPos.width/2;
     var top = canvasPos.top + canvasPos.height/2;
     var x_mouse = (e.clientX - left);
@@ -16,7 +16,7 @@ export function getMouseCord(e, canvasPos){
     return [x_mouse/(canvas.clientWidth/2), y_mouse/(canvas.clientHeight/2)];
 }
 
-export function getColorRGBA(){
+function getColorRGBA(){
     var colorInput = document.getElementById('color-picker').value;
     return hexToRGB(colorInput);
 }

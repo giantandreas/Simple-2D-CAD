@@ -17,7 +17,7 @@ var fragmentCode = [
 '}'
 ].join('\n');
 
-export function programFunction(gl){
+function programFunction(gl){
     var vertexShader = gl.createShader(gl.VERTEX_SHADER);
     gl.shaderSource(vertexShader, vertexCode);
     gl.compileShader(vertexShader);

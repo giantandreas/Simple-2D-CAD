@@ -1,8 +1,4 @@
-import { getColorRGBA, getMouseCord } from "./utils.js";
-import { Object } from "./models.js"
-
-
-export function canvasMouseDown(e, objectManager){
+function canvasMouseDown(e, objectManager){
     var canvas = objectManager.canvas;
     var canvasPos = canvas.getBoundingClientRect();
 
@@ -164,7 +160,7 @@ export function canvasMouseDown(e, objectManager){
     }
 }
 
-export function canvasMouseMove(e, objectManager){
+function canvasMouseMove(e, objectManager){
     var canvas = objectManager.canvas;
     var canvasPos = canvas.getBoundingClientRect();
     
@@ -217,7 +213,7 @@ export function canvasMouseMove(e, objectManager){
     }
 }
 
-export function lineButton(e, objectManager){
+function lineButton(e, objectManager){
     objectManager.drawLine = true;
     var color = getColorRGBA();
     var line = new Object("line", [], color);
@@ -225,7 +221,7 @@ export function lineButton(e, objectManager){
     objectManager.verticeToPut = 2;
 }
 
-export function squareButton(e, objectManager){
+function squareButton(e, objectManager){
     objectManager.drawSquare = true;
     var color = getColorRGBA();
     var square = new Object("square", [], color);
@@ -233,7 +229,7 @@ export function squareButton(e, objectManager){
     objectManager.verticeToPut = 2;
 }
 
-export function rectangleButton(e, objectManager){
+function rectangleButton(e, objectManager){
     objectManager.drawRectangle = true;
     var color = getColorRGBA();
     var rectangle = new Object("rectangle", [], color);
@@ -241,7 +237,7 @@ export function rectangleButton(e, objectManager){
     objectManager.verticeToPut = 2;
 }
 
-export function polygonButton(e, objectManager){
+function polygonButton(e, objectManager){
     objectManager.drawPolygon = true;
     var color = getColorRGBA();
     var polygon = new Object("polygon", [], color);
@@ -249,7 +245,7 @@ export function polygonButton(e, objectManager){
     objectManager.verticeToPut = 1;
 }
 
-export function enterListener(e, objectManager){
+function enterListener(e, objectManager){
     if(objectManager.drawPolygon && objectManager.isDrawing){
         var polygon = objectManager.objectInDraw;
 
@@ -266,7 +262,7 @@ export function enterListener(e, objectManager){
 
 }
 
-export function escapeListener(e, objectManager){
+function escapeListener(e, objectManager){
     if(objectManager.isDrawing){
         objectManager.objectInDraw = null;
         objectManager.isDrawing = false;
@@ -278,16 +274,16 @@ export function escapeListener(e, objectManager){
     }
 }
 
-export function selectListener(e, objectManager){
+function selectListener(e, objectManager){
     objectManager.select = true;
 }
 
-export function changeColorButton(e, objectManager){
+function changeColorButton(e, objectManager){
     objectManager.changeColor = true;
     console.log("change color")
 }
 
-export function saveButton(e, objectManager){
+function saveButton(e, objectManager){
     var data = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(objectManager.objectList));
     var downloadElement = document.createElement('a');
     downloadElement.setAttribute("href", data);
@@ -297,7 +293,7 @@ export function saveButton(e, objectManager){
     downloadElement.remove();
 }
 
-export function loadButton(e, objectManager){
+function loadButton(e, objectManager){
     var file = document.getElementById("file-input").files[0];
 
     if(file){

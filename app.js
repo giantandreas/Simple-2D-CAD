@@ -1,8 +1,4 @@
-import { programFunction } from "./shaders.js";
-import {init} from "./init.js";
-import { canvasMouseDown,lineButton, canvasMouseMove, rectangleButton, squareButton, polygonButton } from "./listener.js";
-import { enterListener, escapeListener, selectListener, loadButton, saveButton, changeColorButton } from './listener.js';
-import {ObjectManager} from "./models.js"
+
 
 function main() {
     /*INITIATION*/

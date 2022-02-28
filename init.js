@@ -1,4 +1,4 @@
-export function init(){
+function init(){
     /*INITIATION*/
     // canvas
     const canvas = document.getElementById("canvas");
