@@ -24,10 +24,14 @@ canvas{
 
 #hidden-text{
     position: absolute;
+    width: fit-content;
     left: 0%;
     bottom: 0;
-    padding: 20px;
+    margin: 20px;
+    padding: 5px;
+    border-radius: 5px;
     display: none;
+    background-color: red;
 
 }
 

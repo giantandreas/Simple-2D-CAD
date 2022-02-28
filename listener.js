@@ -24,7 +24,7 @@ function canvasMouseDown(e, objectManager){
             objectManager.objectInDraw = null;
             line.drawObject(objectManager);
 
-            objectManager.drawLine = false;
+            objectManager.setAtrib("draw-line", false);
             objectManager.isDrawing = false;
         }
     }
@@ -53,7 +53,7 @@ function canvasMouseDown(e, objectManager){
             square.resolveSquareVertice();
             square.drawObject(objectManager);
 
-            objectManager.drawSquare = false;
+            objectManager.setAtrib("draw-square", false);
             objectManager.isDrawing = false;
         }
     }
@@ -81,7 +81,7 @@ function canvasMouseDown(e, objectManager){
             objectManager.objectInDraw = null;
             rectangle.drawObject(objectManager);
 
-            objectManager.drawRectangle = false;
+            objectManager.setAtrib("draw-rectangle", false);
             objectManager.isDrawing = false;
         }
     }
@@ -105,7 +105,7 @@ function canvasMouseDown(e, objectManager){
             objectManager.objectInDraw = null;
             polygon.drawObject(objectManager);
 
-            objectManager.drawPolygon = false;
+            objectManager.setAtrib("draw-polygon", false);
             objectManager.isDrawing = false;
         }
     }
@@ -114,7 +114,7 @@ function canvasMouseDown(e, objectManager){
         /* If a vertex has selected */
         if(objectManager.isDrawing){
             objectManager.isDrawing = false
-            objectManager.select = false;
+            objectManager.setAtrib("select", false);
             objectManager.selectedIndex = null;
             objectManager.selectedObject = null;
             objectManager.reDrawAll();
@@ -156,7 +156,7 @@ function canvasMouseDown(e, objectManager){
             }
         })
         objectManager.reDrawAll();
-        objectManager.changeColor = false;
+        objectManager.setAtrib("change-color", false);
     }
 }
 
@@ -215,7 +215,7 @@ function canvasMouseMove(e, objectManager){
 
 function lineButton(e, objectManager){
     objectManager.prepare();
-    objectManager.drawLine = true;
+    objectManager.setAtrib("draw-line", true);
     var color = getColorRGBA();
     var line = new Object("line", [], color);
     objectManager.objectInDraw = line;
@@ -224,7 +224,7 @@ function lineButton(e, objectManager){
 
 function squareButton(e, objectManager){
     objectManager.prepare();
-    objectManager.drawSquare = true;
+    objectManager.setAtrib("draw-square", true);
     var color = getColorRGBA();
     var square = new Object("square", [], color);
     objectManager.objectInDraw = square;
@@ -233,7 +233,7 @@ function squareButton(e, objectManager){
 
 function rectangleButton(e, objectManager){
     objectManager.prepare();
-    objectManager.drawRectangle = true;
+    objectManager.setAtrib("draw-rectangle", true);
     var color = getColorRGBA();
     var rectangle = new Object("rectangle", [], color);
     objectManager.objectInDraw = rectangle;
@@ -242,7 +242,7 @@ function rectangleButton(e, objectManager){
 
 function polygonButton(e, objectManager){
     objectManager.prepare();
-    objectManager.drawPolygon = true;
+    objectManager.setAtrib("draw-polygon", true);
     var color = getColorRGBA();
     var polygon = new Object("polygon", [], color);
     objectManager.objectInDraw = polygon;
@@ -257,7 +257,7 @@ function enterListener(e, objectManager){
         objectManager.objectInDraw = null;
         polygon.drawObject(objectManager);
 
-        objectManager.drawPolygon = false;
+        objectManager.setAtrib("draw-polygon", false);
         objectManager.isDrawing = false;
         
         objectManager.verticeToPut = 0;
@@ -280,12 +280,12 @@ function escapeListener(e, objectManager){
 
 function selectListener(e, objectManager){
     objectManager.prepare();
-    objectManager.select = true;
+    objectManager.setAtrib("select", true);
 }
 
 function changeColorButton(e, objectManager){
     objectManager.prepare();
-    objectManager.changeColor = true;
+    objectManager.setAtrib("change-color", true);
     console.log("change color")
 }
 

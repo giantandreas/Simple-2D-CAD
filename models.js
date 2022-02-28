@@ -229,6 +229,74 @@ class ObjectManager{
         return this.objectList.length()
     }
 
+    setAtrib(str, val){
+        var hidenText = document.getElementById("hidden-text");
+        if(val){
+            if(str == "draw-line"){
+                this.drawLine = true;
+                hidenText.innerHTML = "menggambar garis";
+                hidenText.style.display = "block";
+
+            }
+            if(str == "draw-square"){
+                this.drawSquare = true;
+                hidenText.innerHTML = "menggambar square";
+                hidenText.style.display = "block";
+            }
+            if(str == "draw-rectangle"){
+                this.drawRectangle = true;
+                hidenText.innerHTML = "menggambar rectangle";
+                hidenText.style.display = "block";
+            }
+            if(str == "draw-polygon"){
+                this.drawPolygon = true;
+                hidenText.innerHTML = "menggambar polygon";
+                hidenText.style.display = "block";
+            }
+            if(str == "select"){
+                this.select = true;
+                hidenText.innerHTML = "pilih vertex";
+                hidenText.style.display = "block";
+            }
+            if(str == "change-color"){
+                this.changeColor = true;
+                hidenText.innerHTML = "Pilih sebuah model";
+                hidenText.style.display = "block";
+            }
+        }else{
+            if(str == "draw-line"){
+                this.drawLine = false;
+                hidenText.innerHTML = "";
+                hidenText.style.display = "none";
+            }
+            if(str == "draw-square"){
+                this.drawSquare = false;
+                hidenText.innerHTML = "";
+                hidenText.style.display = "none";
+            }
+            if(str == "draw-rectangle"){
+                this.drawRectangle = false;
+                hidenText.innerHTML = "";
+                hidenText.style.display = "none";
+            }
+            if(str == "draw-polygon"){
+                this.drawPolygon = false;
+                hidenText.innerHTML = "";
+                hidenText.style.display = "none";
+            }
+            if(str == "select"){
+                this.select = false;
+                hidenText.innerHTML = "";
+                hidenText.style.display = "none";
+            }
+            if(str == "change-color"){
+                this.changeColor = false;
+                hidenText.innerHTML = "";
+                hidenText.style.display = "none";
+            }
+        }
+    }
+
     prepare(){
         this.verticeToPut = 0;
         this.drawLine = false;
