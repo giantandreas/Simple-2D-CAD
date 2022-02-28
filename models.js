@@ -319,15 +319,21 @@ class ObjectManager{
         gl.clear( gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
         gl.clearDepth( 1.0 );
         gl.viewport(0, 0, canvas.width, canvas.height);
-        
 
-        this.objectList.forEach(function(object){
-            object.drawObject(objectManager);
-        })
         
         if(this.objectInDraw != null){
             this.objectInDraw.drawObject(objectManager);
         }
+
+        for(let i= objectManager.objectList.length-1; i >=0; i --){
+            console.log(objectManager.objectList[i]);
+            objectManager.objectList[i].drawObject(objectManager);
+        }
+        
+        // this.objectList.forEach(function(object){
+        //     object.drawObject(objectManager);
+        // })
+        
     }
 
 }
