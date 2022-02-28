@@ -229,6 +229,19 @@ class ObjectManager{
         return this.objectList.length()
     }
 
+    prepare(){
+        this.verticeToPut = 0;
+        this.drawLine = false;
+        this.drawSquare = false;
+        this.drawRectangle = false;
+        this.drawPolygon = false;
+        this.isDrawing = false;
+        this.select = false;
+        this.seletedObject = null;
+        this.selectedIndex = null;
+        this.changeColor = false;
+    }
+
     reDrawAll(){
         /* Redraw all object */
         var gl = this.gl;

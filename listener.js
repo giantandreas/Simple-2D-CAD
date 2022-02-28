@@ -214,6 +214,7 @@ function canvasMouseMove(e, objectManager){
 }
 
 function lineButton(e, objectManager){
+    objectManager.prepare();
     objectManager.drawLine = true;
     var color = getColorRGBA();
     var line = new Object("line", [], color);
@@ -222,6 +223,7 @@ function lineButton(e, objectManager){
 }
 
 function squareButton(e, objectManager){
+    objectManager.prepare();
     objectManager.drawSquare = true;
     var color = getColorRGBA();
     var square = new Object("square", [], color);
@@ -230,6 +232,7 @@ function squareButton(e, objectManager){
 }
 
 function rectangleButton(e, objectManager){
+    objectManager.prepare();
     objectManager.drawRectangle = true;
     var color = getColorRGBA();
     var rectangle = new Object("rectangle", [], color);
@@ -238,6 +241,7 @@ function rectangleButton(e, objectManager){
 }
 
 function polygonButton(e, objectManager){
+    objectManager.prepare();
     objectManager.drawPolygon = true;
     var color = getColorRGBA();
     var polygon = new Object("polygon", [], color);
@@ -275,10 +279,12 @@ function escapeListener(e, objectManager){
 }
 
 function selectListener(e, objectManager){
+    objectManager.prepare();
     objectManager.select = true;
 }
 
 function changeColorButton(e, objectManager){
+    objectManager.prepare();
     objectManager.changeColor = true;
     console.log("change color")
 }
