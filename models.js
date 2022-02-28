@@ -326,7 +326,6 @@ class ObjectManager{
         }
 
         for(let i= objectManager.objectList.length-1; i >=0; i --){
-            console.log(objectManager.objectList[i]);
             objectManager.objectList[i].drawObject(objectManager);
         }
         
