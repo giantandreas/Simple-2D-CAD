@@ -7,6 +7,7 @@
         <link rel="stylesheet" href="style.css">
     </head>
     <body>
+        <div id="hidden-text">Hidden Text</div>
         <div class="container">
             <div class="tools-container">
                 <h1>Simple 2D CAD</h1>
@@ -30,15 +31,35 @@
                 <div>
                     <button id="select-button">Select Vertice</button>
                     <button id="change-color-button">Change Color</button>
-                    <button>Help</button>
+                    <button id="help-button">Help</button>
                 </div>
                 <br>
                 <p>Color</p>
-                <input type="color" id="color-picker" value="#9E9E9E">
+                <input type="color" id="color-picker" value="#D62E2E">
 
             </div>
             <canvas id="canvas" ></canvas>
-            <div id="hidden-text">Hidden Text</div>
+            <div id="help" style="display: none;">
+                <h2>Model</h2>
+                <h3>Line</h3>
+                <p>Tekan tombol "Line", kemudian left click pada canvas untuk menempatkan kordinat pertama line pada canvas, kemudian left click lagi untuk kedua kali untuk menempatkan kordinat kedua line pada canvas</p>
+                <h3>Square</h3>
+                <p>Tekan tombol "Square", kemudian left click pada canvas untuk menempatkan kordinat pertama square pada canvas, kemudian left click lagi untuk kedua kali untuk menggambar square pada canvas</p>
+                <h3>Rectangle</h3>
+                <p>Tekan tombol "Rectangle", kemudian left click pada canvas untuk menempatkan kordinat pertama rectangle pada canvas, kemudian left click lagi untuk kedua kali untuk menggambar rectangle pada canvas</p>
+                <h3>Polygon</h3>
+                <p>Tekan tombol "Polygon", kemudian left click pada canvas untuk menempatkan kordinat pertama rectangle pada canvas, kemudian left click lagi untuk seterusnya untuk memasukkan kordinat sesuai keinginan, kemudian tekan tombol "Enter" untuk menginput kordinat terakhir (kordinat mouse pada saat itu) pada polygon sekaligus menggambarkan polygon pada canvas.</p>
+                <h2>Action</h2>
+                <h3>Select Vertice</h3>
+                <p>Tekan tombol "Select Vertice", kemudian pilih vertive yang ingin diubah posisinya dengan left click pada vertice yang bersesuaian, kemudian left click lagi ke kordinat yang diinginkan.</p>
+                <h3>Change Color</h3>
+                <p>Pilih color yang diinginkan pada colr picker, kemudian tekan tombol "Change Color" dan tekan pada area bangun yang ingin diganti warnanya. (untuk mengganti warna line, dapat dengan menekan salah satu verticenya)</p>
+                <h2>File</h2>
+                <h3>Menyimpan Gambar</h3>
+                <p>Tekan tombol "Save". Browser akan secara otomatis mendownload file berkstensi .json yang menyimpan model-model yang sedang ada di canvas.</p>
+                <h3>Membuka File</h3>
+                <p>Tekan tombol "Choose file" untuk memilih file yang diinginkan. Kemudian tekan tombol load untuk menampilkan model dari file ke atas canvas.</p>
+            </div>
         </div>
         <script src="./init.js"></script>
         <script src="./shaders.js"></script>

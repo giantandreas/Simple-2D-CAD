@@ -75,6 +75,11 @@ function main() {
       changeColorButton(e, objectManager);
     })
 
+    /* Help Button */
+    document.getElementById("help-button").addEventListener("click", function(e){
+      helpbutton(e);
+    })
+
 
 }
 

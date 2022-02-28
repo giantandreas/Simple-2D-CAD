@@ -23,6 +23,16 @@ canvas{
 }
 
 #hidden-text{
-    margin-top: 20px;
+    position: absolute;
+    left: 0%;
+    bottom: 0;
+    padding: 20px;
+    display: none;
+
+}
+
+#help{
+    height: 100vh;
+    overflow-y: scroll;
     display: none;
 }

@@ -315,3 +315,12 @@ function loadButton(e, objectManager){
     }
 
 }
+
+function helpbutton(e, objectManager){
+    console.log(document.getElementById("help").style.display);
+    if(document.getElementById("help").style.display != "none"){
+        document.getElementById("help").style.display = "none";
+    }else{
+        document.getElementById("help").style.display = "block";
+    }
+}
