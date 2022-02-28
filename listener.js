@@ -143,7 +143,25 @@ export function canvasMouseDown(e, objectManager){
             }
         });
     }
-    
+
+    /* Change Color */
+    if(objectManager.changeColor){
+        var canvasWidth = canvas.width;
+        var cords = getMouseCord(e, canvasPos);
+        var color = getColorRGBA();
+        var found = false;
+
+        objectManager.objectList.forEach(object =>{
+            console.log(object.verticeArray);
+            if(object.isInside(cords, canvasWidth)){
+                if(!found){
+                    object.color = color;
+                }
+            }
+        })
+        objectManager.reDrawAll();
+        objectManager.changeColor = false;
+    }
 }
 
 export function canvasMouseMove(e, objectManager){
@@ -264,3 +282,40 @@ export function selectListener(e, objectManager){
     objectManager.select = true;
 }
 
+export function changeColorButton(e, objectManager){
+    objectManager.changeColor = true;
+    console.log("change color")
+}
+
+export function saveButton(e, objectManager){
+    var data = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(objectManager.objectList));
+    var downloadElement = document.createElement('a');
+    downloadElement.setAttribute("href", data);
+    downloadElement.setAttribute("download", "download.json")
+    document.body.append(downloadElement);
+    downloadElement.click();
+    downloadElement.remove();
+}
+
+export function loadButton(e, objectManager){
+    var file = document.getElementById("file-input").files[0];
+
+    if(file){
+        var reader = new FileReader();
+        reader.readAsText(file, "UTF-8");
+        reader.onload = function(evt){
+            var contents = evt.target.result;
+            var objects = JSON.parse(contents);
+            objectManager.objectList = []
+            console.log(objectManager.objectList);
+            objects.forEach(function(obj){
+                objectManager.objectList.push(new Object(obj.type, obj.verticeArray, obj.color));
+            })
+            
+            objectManager.reDrawAll();
+        }
+    }else{
+        alert("Load file failed");
+    }
+
+}

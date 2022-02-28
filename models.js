@@ -6,11 +6,6 @@ export class Object{
         this.verticeArray = verticeArray;
     }
 
-    changeColor(color){
-        this.color = color;
-        // implement change color in the canvas
-    }
-
     resolveSquareVertice(){
         var v1 = [];
         var v2 = [];
@@ -63,6 +58,50 @@ export class Object{
                             v4[0], v4[1]];
         
         this.verticeArray= rectangledVertice;
+    }
+
+    isInside(cords, canvasWidth){
+
+        function between(a, b, x){
+            return((a<=x && x<=b) || (b<=x && x<=a));
+        }
+
+        /* LINE */
+        if(this.type == "line"){
+            var th = 10/canvasWidth;
+            for(let i=0; i<this.verticeArray.length; i+=2){
+                if(Math.abs(this.verticeArray[0] - cords[0]) <= th && Math.abs(this.verticeArray[1] - cords[1]) <= th ){
+                    return true;
+                }
+            }
+        }
+
+        /* SQUARE & RECTANGLE*/
+        if(this.type == "square" || this.type == "rectangle"){
+            var v1 = [this.verticeArray[0], this.verticeArray[1]];
+            var v2 = [this.verticeArray[4], this.verticeArray[5]];
+
+            if(between(v1[0], v2[0], cords[0]) && between(v1[1], v2[1], cords[1])){
+                return true;
+            }else{
+                return false;
+            }
+        }
+
+        /* POLYGON */
+        if(this.type == "polygon"){
+            var polygonVertice = this.polygonVertice();
+            for(let i=0; i<polygonVertice.length; i+=6){
+                if((between(polygonVertice[i], polygonVertice[i+2], cords[0]) ||
+                    between(polygonVertice[i], polygonVertice[i+4], cords[0])) &&
+                    (between(polygonVertice[i+1], polygonVertice[i+3], cords[1]) ||
+                    between(polygonVertice[i+1], polygonVertice[i+5], cords[1]))){
+                        return true;
+                    }
+            }
+        }
+
+        return false;
     }
 
     squaredVertice(){
@@ -183,6 +222,7 @@ export class ObjectManager{
         this.select = false;
         this.seletedObject = null;
         this.selectedIndex = null;
+        this.changeColor = false;
     }
 
     getNumObject(){

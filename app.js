@@ -1,6 +1,7 @@
 import { programFunction } from "./shaders.js";
 import {init} from "./init.js";
-import { canvasMouseDown, lineButton, canvasMouseMove, rectangleButton, squareButton, polygonButton, enterListener, escapeListener, selectListener } from "./listener.js";
+import { canvasMouseDown,lineButton, canvasMouseMove, rectangleButton, squareButton, polygonButton } from "./listener.js";
+import { enterListener, escapeListener, selectListener, loadButton, saveButton, changeColorButton } from './listener.js';
 import {ObjectManager} from "./models.js"
 
 function main() {
@@ -53,12 +54,29 @@ function main() {
       polygonButton(e, objectManager);
     })
 
+    /* Enter listener */
     document.addEventListener('keypress', function(e){
       enterListener(e, objectManager);
     });
 
+    /* Select Vertex Button */
     document.getElementById("select-button").addEventListener("click", function(e){
       selectListener(e, objectManager);
+    })
+
+    /* Load Button */
+    document.getElementById("load-button").addEventListener("click", function(e){
+      loadButton(e, objectManager);
+    })
+
+    /* Save Button */
+    document.getElementById("save-button").addEventListener("click", function(e){
+      saveButton(e, objectManager);
+    })
+
+    /* Change Color Button */
+    document.getElementById("change-color-button").addEventListener("click", function(e){
+      changeColorButton(e, objectManager);
     })
 
 
