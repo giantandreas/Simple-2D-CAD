@@ -330,3 +330,8 @@ function helpbutton(e, objectManager){
         document.getElementById("help").style.display = "block";
     }
 }
+
+function drawVertexButton(e, objectManager){
+    objectManager.drawVertex = !objectManager.drawVertex;
+    objectManager.reDrawAll();
+}

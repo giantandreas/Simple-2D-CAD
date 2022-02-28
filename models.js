@@ -163,9 +163,12 @@ class Object{
             gl.drawArrays(gl.LINES, 0, this.numVertices);
 
             /* Draw Vertice */
-            var color = gl.getUniformLocation(program, 'color');
-            gl.uniform4fv(color, [0,0,0,1]);
-            gl.drawArrays(gl.POINTS, 0, this.numVertices);
+            if(objectManager.drawVertex){
+                var color = gl.getUniformLocation(program, 'color');
+                gl.uniform4fv(color, [0,0,0,1]);
+                gl.drawArrays(gl.POINTS, 0, this.numVertices);
+            }
+            
 
         }else if(this.type == "square"){
             /* Draw Square */
@@ -173,10 +176,12 @@ class Object{
             initBuffer(this, gl ,program);
             gl.drawArrays(gl.TRIANGLE_FAN, 0, this.numVertices);
 
-            /* Draw Vertice (black) */
-             var color = gl.getUniformLocation(program, 'color');
-             gl.uniform4fv(color, [0,0,0,1]);
-             gl.drawArrays(gl.POINTS, 0, this.numVertices);
+            /* Draw Vertice */
+            if(objectManager.drawVertex){
+                var color = gl.getUniformLocation(program, 'color');
+                gl.uniform4fv(color, [0,0,0,1]);
+                gl.drawArrays(gl.POINTS, 0, this.numVertices);
+            }
 
         }else if(this.type == "rectangle"){
             /*Draw Rectangle */
@@ -184,20 +189,24 @@ class Object{
             initBuffer(this, gl ,program);
             gl.drawArrays(gl.TRIANGLE_FAN, 0, this.numVertices);
 
-            /* Draw Vertice (black) */
-             var color = gl.getUniformLocation(program, 'color');
-             gl.uniform4fv(color, [0,0,0,1]);
-             gl.drawArrays(gl.POINTS, 0, this.numVertices);
+            /* Draw Vertice */
+            if(objectManager.drawVertex){
+                var color = gl.getUniformLocation(program, 'color');
+                gl.uniform4fv(color, [0,0,0,1]);
+                gl.drawArrays(gl.POINTS, 0, this.numVertices);
+            }
 
         }else if(this.type == "polygon"){
             /* Draw Polygon */
             initBuffer(this, gl, program);
             gl.drawArrays(gl.TRIANGLE_FAN, 0, this.numVertices);
 
-            /* Draw Vertice (black) */
-            var color = gl.getUniformLocation(program, 'color');
-            gl.uniform4fv(color, [0,0,0,1]);
-            gl.drawArrays(gl.POINTS, 0, this.numVertices);
+            /* Draw Vertice */
+            if(objectManager.drawVertex){
+                var color = gl.getUniformLocation(program, 'color');
+                gl.uniform4fv(color, [0,0,0,1]);
+                gl.drawArrays(gl.POINTS, 0, this.numVertices);
+            }
         }else{
             console.log("%s not a object type!", this.type);
         }
@@ -223,6 +232,7 @@ class ObjectManager{
         this.seletedObject = null;
         this.selectedIndex = null;
         this.changeColor = false;
+        this.drawVertex = true;
     }
 
     getNumObject(){

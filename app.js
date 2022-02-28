@@ -80,6 +80,11 @@ function main() {
       helpbutton(e);
     })
 
+    /* Draw vertex */
+    document.getElementById("draw-vertex-button").addEventListener("click", function(e){
+      drawVertexButton(e, objectManager);
+    })
+
 
 }
 
